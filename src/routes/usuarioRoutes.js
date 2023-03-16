@@ -5,11 +5,11 @@ const AuthUsuario = require('../middleware/AuthUsuario.js');
 const usuarioRoutes = express.Router();
 
 usuarioRoutes
-    .get('/usuarios', AuthUsuario.verificaToken, UsuarioController.buscandoUsuarios)
-    .get('/usuarios/ativos', AuthUsuario.verificaToken, UsuarioController.buscandoUsuariosAtivos)
-    .get('/usuarios/:id', AuthUsuario.verificaToken, UsuarioController.buscandoUsuarioPorId)
-    .post('/usuarios', AuthUsuario.verificaToken, UsuarioController.criandoUsuario)
-    .put('/usuarios/:id', AuthUsuario.verificaToken, UsuarioController.atualizandoUsuario)
-    .delete('/usuarios/:id', AuthUsuario.verificaToken, UsuarioController.apagandoUsuario);
+    .get('/usuarios', AuthUsuario.verificaToken, AuthUsuario.verificaRole, UsuarioController.buscandoUsuarios)
+    .get('/usuarios/ativos', AuthUsuario.verificaToken, AuthUsuario.verificaRole, UsuarioController.buscandoUsuariosAtivos)
+    .get('/usuarios/:id', AuthUsuario.verificaToken, AuthUsuario.verificaRole, UsuarioController.buscandoUsuarioPorId)
+    .post('/usuarios', AuthUsuario.verificaToken, AuthUsuario.verificaRole, UsuarioController.criandoUsuario)
+    .put('/usuarios/:id', AuthUsuario.verificaToken, AuthUsuario.verificaRole, UsuarioController.atualizandoUsuario)
+    .delete('/usuarios/:id', AuthUsuario.verificaToken, AuthUsuario.verificaRole, UsuarioController.apagandoUsuario);
 
 module.exports = usuarioRoutes;

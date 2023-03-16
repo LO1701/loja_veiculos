@@ -27,11 +27,11 @@ class AuthController {
                 secret
             );
 
+            const roleUsuarioAtual = usuarioProcurado.role;
+            const idUsuarioAtual = usuarioProcurado.id; 
+
             res.status(200).json({msg: "Autenticação realizada com sucesso", token});
 
-            const roleUsuarioAtual = usuarioProcurado.role;
-            const idUsuarioAtual = usuarioProcurado.id;
-     
         } catch (error) {
             console.log(error.message);
 

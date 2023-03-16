@@ -1,5 +1,3 @@
-const AuthService = require('../services/AuthServices.js');
-const authService = new AuthService();
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
 
@@ -20,6 +18,13 @@ class AuthUsuario {
         } catch (error) {
             res.status(400).json({msg: 'Faça o login'});
         }
+    }
+
+    static async verificaRole(req, res, next){  
+
+            return res.status(403).json({msg: "Usuario não possui permissão"});
+
+        next();   
     }
 }
 
