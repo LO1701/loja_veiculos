@@ -3,8 +3,8 @@ const authService = new AuthService();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
-class AuthController {
-    static async login(req, res) {
+
+    const login = async (req, res) => {
         const email = req.body.email;
         const senha = req.body.senha;
 
@@ -25,10 +25,7 @@ class AuthController {
                 id: usuarioProcurado.id
             },
                 secret
-            );
-
-            const roleUsuarioAtual = usuarioProcurado.role;
-            const idUsuarioAtual = usuarioProcurado.id; 
+            ); 
 
             res.status(200).json({msg: "Autenticação realizada com sucesso", token});
 
@@ -39,9 +36,8 @@ class AuthController {
         }
     }
 
-    static async logOut(req, res) {
+    // const logOut = (req, res) => {
 
-    }
-}
+    // }
 
-module.exports = AuthController;
+module.exports = { login }

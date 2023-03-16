@@ -2,9 +2,7 @@ const UsuarioService = require('../services/UsuarioServices.js');
 const usuarioService = new UsuarioService();
 const bcrypt = require('bcrypt');
 
-class UsuarioController {
-
-    static async criandoUsuario(req, res) {
+    const criandoUsuario = async (req, res) => {
         const novoUsuario = req.body;
         const senha = req.body.senha;
         const confirmaSenha = req.body.confirmaSenha;
@@ -31,7 +29,7 @@ class UsuarioController {
         }
     }
 
-    static async buscandoUsuarios(req, res) {
+    const buscandoUsuarios = async (req, res) => {
         try {
             const usuariosProcurados = await usuarioService.buscandoRegistro();
 
@@ -45,7 +43,7 @@ class UsuarioController {
         }
     }
 
-    static async buscandoUsuarioPorId(req, res) {
+    const buscandoUsuarioPorId = async (req, res) => {
         const id = req.params.id;
 
         try {
@@ -61,7 +59,7 @@ class UsuarioController {
         }
     }
 
-    static async buscandoUsuariosAtivos(req, res) {
+    const buscandoUsuariosAtivos = async (req, res) => {
         try {
             const usuariosProcurados = await usuarioService.buscaUsuariosAtivos();
 
@@ -75,7 +73,7 @@ class UsuarioController {
         }
     }
 
-    static async atualizandoUsuario(req, res) {
+    const atualizandoUsuario = async (req, res) => {
         const novoUsuario = req.body;
         const id = req.params.id;
 
@@ -93,7 +91,7 @@ class UsuarioController {
         }
     }
 
-    static async apagandoUsuario(req, res) {
+    const apagandoUsuario = async (req, res) => {
         const id = req.params.id;
 
         try {
@@ -109,6 +107,5 @@ class UsuarioController {
             res.status(500).send(`Erro ao deletar o usuário - ${error.message}`);
         }
     }
-}
 
-module.exports = UsuarioController
+module.exports = { criandoUsuario, buscandoUsuarios, buscandoUsuarioPorId, buscandoUsuariosAtivos, atualizandoUsuario, apagandoUsuario }

@@ -1,15 +1,24 @@
 const express = require("express");
-const UsuarioController = require('../controllers/usuarioController.js');
-const AuthUsuario = require('../middleware/AuthUsuario.js');
+const { 
+    buscandoUsuarios, 
+    buscandoUsuariosAtivos, 
+    buscandoUsuarioPorId, 
+    criandoUsuario, 
+    atualizandoUsuario, 
+    apagandoUsuario } = require('../controllers/usuarioController.js');
+
+const { 
+    verificaRole, 
+    verificaToken } = require('../middleware/AuthUsuario.js');
 
 const usuarioRoutes = express.Router();
 
 usuarioRoutes
-    .get('/usuarios', AuthUsuario.verificaToken, AuthUsuario.verificaRole, UsuarioController.buscandoUsuarios)
-    .get('/usuarios/ativos', AuthUsuario.verificaToken, AuthUsuario.verificaRole, UsuarioController.buscandoUsuariosAtivos)
-    .get('/usuarios/:id', AuthUsuario.verificaToken, AuthUsuario.verificaRole, UsuarioController.buscandoUsuarioPorId)
-    .post('/usuarios', AuthUsuario.verificaToken, AuthUsuario.verificaRole, UsuarioController.criandoUsuario)
-    .put('/usuarios/:id', AuthUsuario.verificaToken, AuthUsuario.verificaRole, UsuarioController.atualizandoUsuario)
-    .delete('/usuarios/:id', AuthUsuario.verificaToken, AuthUsuario.verificaRole, UsuarioController.apagandoUsuario);
+    .get('/usuarios', verificaToken, verificaRole, buscandoUsuarios)
+    .get('/usuarios/ativos', verificaToken, verificaRole, buscandoUsuariosAtivos)
+    .get('/usuarios/:id', verificaToken, verificaRole, buscandoUsuarioPorId)
+    .post('/usuarios', verificaToken, verificaRole, criandoUsuario)
+    .put('/usuarios/:id', verificaToken, verificaRole, atualizandoUsuario)
+    .delete('/usuarios/:id', verificaToken, verificaRole, apagandoUsuario);
 
 module.exports = usuarioRoutes;

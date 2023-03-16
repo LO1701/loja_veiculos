@@ -1,8 +1,7 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
 
-class AuthUsuario {
-    static async verificaToken(req, res, next){
+    const verificaToken = (req, res, next) => {
         const authHeader = req.headers['authorization'];
         const token = authHeader && authHeader.split(' ')[1];
 
@@ -20,12 +19,11 @@ class AuthUsuario {
         }
     }
 
-    static async verificaRole(req, res, next){  
-
-            return res.status(403).json({msg: "Usuario não possui permissão"});
+    const verificaRole = (req, res, next) => {  
+        // if(roleUsuarioAtual)
+        //     return res.status(403).json({msg: "Usuario não possui permissão"});
 
         next();   
     }
-}
 
-module.exports = AuthUsuario;
+module.exports = { verificaToken, verificaRole }
