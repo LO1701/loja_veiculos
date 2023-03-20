@@ -24,11 +24,11 @@ class AuthController {
             const token = jwt.sign({
                 id: usuarioProcurado.id
             },
-                secret
+                secret,
+            {
+                expiresIn: '15m'
+            }
             );
-
-            const roleUsuarioAtual = usuarioProcurado.role;
-            const idUsuarioAtual = usuarioProcurado.id; 
 
             res.status(200).json({msg: "Autenticação realizada com sucesso", token});
 
@@ -40,7 +40,7 @@ class AuthController {
     }
 
     static async logOut(req, res) {
-
+        
     }
 }
 
