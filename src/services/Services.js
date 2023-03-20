@@ -1,4 +1,3 @@
-const { where } = require('sequelize');
 const dataBase = require('../models');
 class Services {
     constructor(nomeModelo){

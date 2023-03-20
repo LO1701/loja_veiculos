@@ -1,5 +1,8 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
+const jwt_decode = require('jwt-decode');
+const AuthService = require('../services/AuthServices.js');
+const authService = new AuthService();
 
     const verificaToken = (req, res, next) => {
         const authHeader = req.headers['authorization'];
@@ -19,11 +22,24 @@ const jwt = require('jsonwebtoken');
         }
     }
 
-    const verificaRole = (req, res, next) => {  
-        // if(roleUsuarioAtual)
-        //     return res.status(403).json({msg: "Usuario não possui permissão"});
+    const verificaRole = async (req, res, next) => { 
 
-        next();   
+        const authHeader = req.headers['authorization'];
+
+        const decodificado =  jwt_decode(authHeader);
+
+        try {
+            const usuarioProcurado = await authService.buscandoRegistroPorId(decodificado.id);
+        
+            if(usuarioProcurado.role !== 'gerente')
+                return res.status(403).json({msg: "Usuario não possui permissão"});
+
+            next(); 
+            
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({msg: 'Erro no servidor, tente mais tarde'});
+        }  
     }
 
 module.exports = { verificaToken, verificaRole }
